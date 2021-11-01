@@ -1,0 +1,114 @@
+import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.StringTokenizer;
+import java.util.regex.Pattern;
+import java.awt.*;
+import javax.swing.*;
+
+public class EWExtractor extends JFrame implements ActionListener {
+	
+	static JLabel L1;
+	
+	static JTextField T1;
+	
+	static JButton B;
+	
+	static JLabel L2;
+	
+	static JTextField T2;
+	
+	static JFrame f;
+	
+	EWExtractor()
+	{
+		
+	}
+
+	public static void main(String[] args) {
+		
+		f = new JFrame("Email and Website Extractor");
+		
+		Font f1 = new Font("Helvetica", Font.BOLD, 30);
+		
+		L1 = new JLabel("Enter the paragraph to be extracted");
+		L1.setFont(f1);
+		
+		B = new JButton("Extract");
+		B.setPreferredSize(new Dimension(300, 50));
+		B.setFont(f1);
+		
+		L2 = new JLabel("The extracted emails and websites\n");
+		L2.setFont(f1);
+		
+		EWExtractor te = new EWExtractor();
+		
+		B.addActionListener(te);
+		
+		T1 = new JTextField("Enter Here");
+		T1.setColumns(50);
+		Font f2 = new Font("Consolas", Font.PLAIN, 25);
+		T1.setFont(f2);
+		
+		T2 = new JTextField("Extracted emails and websites will appear here");
+		T2.setColumns(50);
+		T2.setFont(f2);
+		
+		JPanel p = new JPanel();
+		
+		p.add(L1);
+		p.add(T1);
+		p.add(B);
+		p.add(L2);
+		p.add(T2);
+		
+		f.add(p);
+		Image icon = Toolkit.getDefaultToolkit().getImage("icon.png");  
+		f.setIconImage(icon);
+		
+		f.setSize(750, 500);
+
+		f.show();
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		
+		String s = e.getActionCommand();
+		if(s.equals("Extract")) {
+			
+			String str = T1.getText();
+			String print = new String("");
+			
+			ArrayList<String> emails = new ArrayList<String>();
+			ArrayList<String> websites = new ArrayList<String>();
+			StringTokenizer st = new StringTokenizer(str," ");
+			while(st.hasMoreTokens()) 
+			{
+				String temp = st.nextToken().toString();
+				if(Pattern.matches("^(.+)@(.+)$", temp) == true)
+					emails.add(temp);
+				if(Pattern.matches("^(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]", temp) == true)
+					websites.add(temp);
+			}
+			
+			print += "================================\nEmails:\n";
+			Iterator<String> iter1 = emails.iterator();
+			while(iter1.hasNext())
+			{
+				print += iter1.next()+"\n";
+			}
+			print += "================================\n";
+			print += "\n================================\nWebsites:\n";
+			Iterator<String> iter2 = websites.iterator();
+			while(iter2.hasNext())
+			{
+				print += iter2.next()+"\n";
+			}
+			print += "================================";
+			
+			T2.setText(print);
+			System.out.println(print);
+		}
+	}
+
+}
