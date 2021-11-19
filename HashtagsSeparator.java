@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class HashtagsSeparator {
 
 	public static void main(String[] args) {
-		//Initialize the String which needs to be split
+	    //Initialize the String which needs to be split
 	    String str;
 	    Scanner sc = new Scanner(System.in);
 	    System.out.println("Enter the hashtags");
