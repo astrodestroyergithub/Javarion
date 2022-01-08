@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class HashtagsSeparator {
+public class Main {
 
 	public static void main(String[] args) {
 	    //Initialize the String which needs to be split
@@ -10,7 +10,7 @@ public class HashtagsSeparator {
 	    str = sc.nextLine();
 	    
 	    //Use the Split method and store the array of Strings returned in a String array
-	    String[] arr = str.split(" ");
+	    String[] arr = str.split(" #");
 	    
 	    //Printing the characters using for-each loop
 	    for(String character : arr)
